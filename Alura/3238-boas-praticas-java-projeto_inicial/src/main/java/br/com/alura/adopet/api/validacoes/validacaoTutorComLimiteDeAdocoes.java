@@ -14,7 +14,7 @@ import br.com.alura.adopet.api.repository.AdocaoRepository;
 import br.com.alura.adopet.api.repository.TutorRepository;
 
 @Component
-public class validacaoTutorComLimiteDeAdocoes {
+public class validacaoTutorComLimiteDeAdocoes implements ValidacaoSolicitacaoAdocao {
     
     @Autowired
     private AdocaoRepository adocaoRepository;
