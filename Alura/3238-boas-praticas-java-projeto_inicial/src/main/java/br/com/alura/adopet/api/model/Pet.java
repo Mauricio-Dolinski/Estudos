@@ -1,8 +1,6 @@
 package br.com.alura.adopet.api.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
