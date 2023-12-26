@@ -1,5 +1,6 @@
 package br.com.alura.adopet.api.controller;
 
+import br.com.alura.adopet.api.dto.PetDto;
 import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.service.PetService;
 
