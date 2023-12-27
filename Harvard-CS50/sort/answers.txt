@@ -1,0 +1,32 @@
+sort1 uses: Bubble sort
+
+How do you know?:   Performed the sorted list faster than Selection sort, when it's sorted
+                    it ends the algorithm
+
+                    sorted5000 -    0.044s
+                    sorted50000 -   3.535s
+                    random10000 -   0.290s
+                    random50000 -   8.339s
+                    reversed50000 - 6.482s
+
+sort2 uses: Merge sort
+
+How do you know?:   It took less time to sort the random lists, and it's more efficient
+                    at high numbers sugesting O(n log n)
+
+                    sorted5000 -    0.028s
+                    sorted50000 -   0.950s
+                    random10000 -   0.103s
+                    random50000 -   1.239s
+                    reversed50000 - 0.787s
+
+sort3 uses: Selection sort
+
+How do you know?:   Took in average the same time on sorted, random or reversed list, but
+                    took more time than the Merge sort sugesting Selection sort.
+
+                    sorted5000 -    0.047s
+                    sorted50000 -   4.440s
+                    random10000 -   0.181s
+                    random50000 -   5.166s
+                    reversed50000 - 3.836s
