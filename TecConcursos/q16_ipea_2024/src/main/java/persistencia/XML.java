@@ -3,7 +3,7 @@ package persistencia;
 public class XML implements Exportavel {
     public boolean open(){
         System.out.println(this.getClass().getName() + " open");
-        return false;
+        return true;
     }
     public boolean close(){
         System.out.println(this.getClass().getName() + " close");

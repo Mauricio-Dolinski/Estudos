@@ -6,15 +6,24 @@ public class Exportadora {
     private Exportavel exportavel;
 
     public Exportadora() throws IOException {
-        this.exportavel = new XML();
-
-        if ( !exportavel.open()){
-            this.exportavel = new JSON();
-            if (!exportavel.open()){
-                this.exportavel = new PlainText();
-                if (!exportavel.open())
+        ExportavelFactory exportavelFactory = new ExportavelFactory();
+        String[] formats = exportavelFactory.getFormats();
+        for (String format : formats) {
+            exportavel = exportavelFactory.criarExportavel(format);
+            if (format.equals(formats[formats.length-1])){
+                if (exportavel.open()){
+                    break;
+                }
+                else {
                     throw new IOException();
+                }
             }
+            if (exportavel.open())
+                break;
+        }
+        
+        if (exportavel == null){
+            throw new IOException();
         }
     } 
 
