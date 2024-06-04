@@ -46,4 +46,19 @@ public class Fruit {
         return client.preparedQuery("DELETE FROM fruits WHERE id = $1").execute(Tuple.of(id))
                 .onItem().transform(pgRowSet -> pgRowSet.rowCount() == 1); 
     }
+
+    // 2 insertions in the same transaction, the transaction is automatically committed on success or rolled back on failure.
+    public static Uni<Void> insertTwoFruits(PgPool client, Fruit fruit1, Fruit fruit2) {
+        return client.withTransaction(conn -> {
+            Uni<RowSet<Row>> insertOne = conn.preparedQuery("INSERT INTO fruits (name) VALUES ($1) RETURNING id")
+                    .execute(Tuple.of(fruit1.name));
+            Uni<RowSet<Row>> insertTwo = conn.preparedQuery("INSERT INTO fruits (name) VALUES ($1) RETURNING id")
+                    .execute(Tuple.of(fruit2.name));
+    
+            return Uni.combine().all().unis(insertOne, insertTwo)
+                    // Ignore the results (the two ids)
+                    .discardItems();
+        });
+    }
+    
 }
