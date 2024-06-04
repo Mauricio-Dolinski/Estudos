@@ -9,6 +9,7 @@ import io.vertx.mutiny.pgclient.PgPool;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -41,6 +42,14 @@ public class FruitsController {
         return fruit.save(client)
                 .onItem().transform(id -> URI.create("/fruits/" + id))
                 .onItem().transform(uri -> Response.created(uri).build());
+    }
+
+    @PUT
+    @Path("{id}")
+    public Uni<Response> update(Long id, Fruit fruit) {
+        return fruit.update(client)
+                .onItem().transform(updated -> updated ? Status.OK : Status.NOT_FOUND)
+                .onItem().transform(status -> Response.status(status).build());
     }
 
     @DELETE

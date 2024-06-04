@@ -42,6 +42,11 @@ public class Fruit {
                 .onItem().transform(pgRowSet -> pgRowSet.iterator().next().getLong("id"));
     }
 
+    public Uni<Boolean> update(PgPool client) {
+        return client.preparedQuery("UPDATE fruits SET name = $1 WHERE id = $2").execute(Tuple.of(name, id))
+                .onItem().transform(pgRowSet -> pgRowSet.rowCount() == 1);
+    }
+
     public static Uni<Boolean> delete(PgPool client, Long id) {
         return client.preparedQuery("DELETE FROM fruits WHERE id = $1").execute(Tuple.of(id))
                 .onItem().transform(pgRowSet -> pgRowSet.rowCount() == 1); 
