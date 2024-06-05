@@ -4,6 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.alura.screenmatch.service.ConsumoAPI;
+
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
@@ -13,7 +15,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Projeto");
+		var consumoAPI = new ConsumoAPI();
+		var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=3a812e74");
+		System.out.println(json);
 	}
 
 }
