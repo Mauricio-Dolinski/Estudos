@@ -18,6 +18,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		var consumoAPI = new ConsumoAPI();
 		var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=3a812e74");
 		System.out.println(json);
+
+		
 	}
 
 }
