@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.service.ConsumoAPI;
@@ -38,5 +39,8 @@ public class Principal {
 			temporadas.add(dadosTemporada);
 		}
 		temporadas.forEach(System.out::println); 
+
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+        temporadas.forEach(System.out::println);
     }
 }
