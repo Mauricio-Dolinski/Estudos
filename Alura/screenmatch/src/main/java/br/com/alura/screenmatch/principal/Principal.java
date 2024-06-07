@@ -1,6 +1,7 @@
 package br.com.alura.screenmatch.principal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +42,15 @@ public class Principal {
 		temporadas.forEach(System.out::println); 
 
         temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
-        temporadas.forEach(System.out::println);
+
+        List<String> nomes = Arrays.asList("J", "T", "P");
+
+        nomes.stream()
+                .sorted()
+                .limit(2)
+                .filter(n -> n.startsWith("J"))
+                .map(n -> n.toUpperCase())
+                .forEach(System.out::println);
+
     }
 }
