@@ -1,7 +1,5 @@
 package br.com.alura.screenmatch.principal;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.stream.Collectors;
 import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
 
@@ -61,14 +58,19 @@ public class Principal {
                 .collect(Collectors.toList());
                 //.toList();
 
-        System.out.println("\nTop 5 Episodios:");
+        System.out.println("\nTop 10 Episodios:");
         dadosEpisodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .peek(e -> System.out.println("Primeiro filtro(N/A) " + e))
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
-                .limit(5)
+                .peek(e -> System.out.println("Ordenação " + e))
+                .limit(10)
+                .peek(e -> System.out.println("Limite " + e))
+                .map(e -> e.titulo().toUpperCase())
+                .peek(e -> System.out.println("Mapeamento " + e))
                 .forEach(System.out::println);
 
-        List<Episodio> episodios = temporadas.stream()
+        /* List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream()
                         .map(d -> new Episodio(t.numero(), d))
                         ).collect(Collectors.toList());
@@ -87,7 +89,7 @@ public class Principal {
                     "Temporada: " + e.getTemporada() +
                     " Episodios: " + e.getTitulo() +
                     " Data lançamento: " + e.getDataLancamento().format(formatador)
-                ));
+                )); */
 
     }
 }
