@@ -1,18 +1,15 @@
 package br.com.alura.screenmatch.principal;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
+import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
 
@@ -60,9 +57,9 @@ public class Principal {
         List<DadosEpisodio> dadosEpisodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream())
                 .collect(Collectors.toList());
-                //.toList();
 
-        System.out.println("\nTop 10 Episodios:");
+
+        /* System.out.println("\nTop 10 Episodios:");
         dadosEpisodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
                 .peek(e -> System.out.println("Primeiro filtro(N/A) " + e))
@@ -72,15 +69,28 @@ public class Principal {
                 .peek(e -> System.out.println("Limite " + e))
                 .map(e -> e.titulo().toUpperCase())
                 .peek(e -> System.out.println("Mapeamento " + e))
-                .forEach(System.out::println);
+                .forEach(System.out::println); */
 
-        /* List<Episodio> episodios = temporadas.stream()
+        List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream()
                         .map(d -> new Episodio(t.numero(), d))
                         ).collect(Collectors.toList());
         episodios.forEach(System.out::println);
 
-        System.out.println("A partir de que ano você deseja ver os episodios?");
+        System.out.println("Digite um trecho do título do episódio");
+        String trechoTitulo = leitura.nextLine();
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+                .findFirst();
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episódio encontrado!");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+        } else {
+            System.out.println("Episódio não encontrado!");
+        }
+
+
+        /* System.out.println("A partir de que ano você deseja ver os episodios?");
         var ano = leitura.nextInt();
         leitura.nextLine();
 
