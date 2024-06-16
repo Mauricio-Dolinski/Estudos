@@ -2,6 +2,7 @@ package br.com.alura.screenmatch.principal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class Principal {
                         ).collect(Collectors.toList());
         episodios.forEach(System.out::println);
 
-        System.out.println("Digite um trecho do título do episódio");
+        /* System.out.println("Digite um trecho do título do episódio");
         String trechoTitulo = leitura.nextLine();
         Optional<Episodio> episodioBuscado = episodios.stream()
                 .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
@@ -87,7 +88,13 @@ public class Principal {
             System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
         } else {
             System.out.println("Episódio não encontrado!");
-        }
+        } */
+
+        Map<Integer, Double> avaliacoesPorTemporada = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getAvaliacao)));
+        System.out.println(avaliacoesPorTemporada);
 
 
         /* System.out.println("A partir de que ano você deseja ver os episodios?");
